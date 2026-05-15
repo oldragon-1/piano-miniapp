@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "piano-keyboard": "../../components/piano-keyboard/piano-keyboard"
+  },
+  "pageOrientation": "landscape",
+  "navigationBarTitleText": "弹奏"
+}
