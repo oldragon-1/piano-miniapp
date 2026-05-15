@@ -1,0 +1,16 @@
+<view class="keyboard-wrapper" style="width:{{canvasW}}px; height:{{canvasH}}px;">
+  <!-- 八度切换栏（仅 Hard 层显示） -->
+  <view class="octave-bar" wx:if="{{layer === 3}}">
+    <view class="octave-btn" bindtap="onOctaveDown">◀ 八度-1</view>
+    <text class="octave-label">{{octaveLabel}}</text>
+    <view class="octave-btn" bindtap="onOctaveUp">八度+1 ▶</view>
+  </view>
+  
+  <canvas 
+    type="2d" 
+    id="pianoCanvas" 
+    class="piano-canvas"
+    bindtouchstart="onTouchStart"
+    bindtouchend="onTouchEnd"
+  ></canvas>
+</view>
