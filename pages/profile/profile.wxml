@@ -1,0 +1,97 @@
+<!-- 我的页面 -->
+<view class="container">
+  <!-- 用户信息 -->
+  <view class="user-card">
+    <view class="avatar">🎹</view>
+    <view class="user-info">
+      <text class="nickname">钢琴练习生</text>
+    </view>
+  </view>
+
+  <!-- 统计信息 -->
+  <view class="stats-row">
+    <view class="stat-item">
+      <text class="stat-value">{{weeklyPlayDays}}</text>
+      <text class="stat-label">本周练习(天)</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{totalPlays}}</text>
+      <text class="stat-label">总弹奏次数</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{userSongCount}}</text>
+      <text class="stat-label">我的曲谱</text>
+    </view>
+  </view>
+
+  <!-- 我的曲谱 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">我的曲谱</text>
+      <view class="btn-add" bindtap="goImport">+ 新增</view>
+    </view>
+    <view wx:if="{{userSongs.length === 0}}" class="empty-hint">
+      <text class="empty-text">还没有自定义曲谱，点击"+ 新增"添加</text>
+    </view>
+    <view class="user-song-list" wx:else>
+      <view class="user-song-item" wx:for="{{userSongs}}" wx:key="id">
+        <view class="user-song-info" bindtap="playUserSong" data-id="{{item.id}}">
+          <text class="user-song-title">{{item.title}}</text>
+          <view class="user-song-meta">
+            <text class="user-song-note">{{item.noteCount}}个音符</text>
+            <text class="user-song-date" wx:if="{{item.date}}">{{item.date}}</text>
+          </view>
+        </view>
+        <view class="user-song-actions">
+          <view class="btn-notation" bindtap="showNotation" data-id="{{item.id}}">简谱</view>
+          <view class="btn-delete" bindtap="deleteUserSong" data-id="{{item.id}}">删除</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最近弹奏 -->
+  <view class="section" wx:if="{{recentSongs.length > 0}}">
+    <text class="section-title">最近弹奏</text>
+    <view class="recent-list">
+      <view class="recent-item" wx:for="{{recentSongs}}" wx:key="id">
+        <view class="recent-icon">🎵</view>
+        <view class="recent-info">
+          <text class="recent-name">{{item.title}}</text>
+          <text class="recent-date">{{item.date}}</text>
+        </view>
+        <text class="recent-score">{{item.score}}分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部导航 -->
+  <view class="tab-bar">
+    <view class="tab-item" bindtap="goHome">
+      <text class="tab-icon">🏠</text>
+      <text class="tab-label">首页</text>
+    </view>
+    <view class="tab-item active">
+      <text class="tab-icon">👤</text>
+      <text class="tab-label">我的</text>
+    </view>
+  </view>
+
+  <!-- 简谱查看弹窗 -->
+  <view class="modal-overlay" wx:if="{{showNotationModal}}" bindtap="hideNotationModal">
+    <view class="notation-modal" catchtap="">
+      <view class="notation-modal-header">
+        <text class="notation-modal-title">{{notationModalTitle}}</text>
+        <view class="notation-modal-close" bindtap="hideNotationModal">✕</view>
+      </view>
+      <scroll-view scroll-y class="notation-modal-body">
+        <view class="notation-line" wx:for="{{notationLines}}" wx:key="index">
+          <text class="notation-text">{{item}}</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+
+<!-- 分享卡片画板（隐藏） -->
+<canvas type="2d" id="shareCanvas" style="width:360px;height:640px;position:fixed;left:-9999px;top:0;"></canvas>
