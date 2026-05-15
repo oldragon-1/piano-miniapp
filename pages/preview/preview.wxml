@@ -1,0 +1,42 @@
+<!-- 预览页 - 横屏：上方谱子区 + 下方小键盘 -->
+<view class="container">
+  <!-- 顶部信息条 -->
+  <view class="header">
+    <text class="song-title">{{songTitle}}</text>
+    <view class="speed-control">
+      <text class="speed-label">速度：</text>
+      <view class="speed-btn {{speed === 'slow' ? 'active' : ''}}" bindtap="setSpeed" data-speed="slow">慢速</view>
+      <view class="speed-btn {{speed === 'normal' ? 'active' : ''}}" bindtap="setSpeed" data-speed="normal">正常</view>
+    </view>
+  </view>
+
+  <!-- 上方：滚动曲谱区 -->
+  <view class="sheet-area">
+    <scroll-view class="sheet-scroll" scroll-y scroll-into-view="note-{{currentIndex}}" scroll-with-animation>
+      <view class="sheet-list">
+        <view id="note-{{index}}" class="sheet-row {{index === currentIndex ? 'active' : (index < currentIndex ? 'played' : '')}}" wx:for="{{notes}}" wx:key="index">
+          <text class="note-num">{{item.note || '-'}}</text>
+          <text class="note-chord" wx:if="{{item.chord}}">{{item.chord}}</text>
+          <text class="note-hand">L</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 下方：右手旋律键盘 -->
+  <view class="keyboard-area">
+    <preview-keyboard
+      highlightNote="{{currentNote}}"
+      highlightChord="{{currentChord}}"
+      bind:keydown="onKeyDown"
+    />
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-bar">
+    <view class="btn-play-demo {{isPlaying ? 'playing' : ''}}" bindtap="togglePlayDemo">
+      {{isPlaying ? '⏸ 停止' : '▶ 播放演示'}}
+    </view>
+    <view class="btn-start" bindtap="startPlay">开始跟弹 →</view>
+  </view>
+</view>
