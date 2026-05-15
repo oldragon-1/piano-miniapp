@@ -1,0 +1,9 @@
+<view class="keyboard-container" id="keyboardContainer">
+  <canvas 
+    type="2d" 
+    id="previewPianoCanvas" 
+    bindtouchstart="onTouchStart"
+    bindtouchmove="onTouchMove"
+    bindtouchend="onTouchEnd"
+  ></canvas>
+</view>
