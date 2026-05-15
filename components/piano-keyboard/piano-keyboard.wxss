@@ -1,0 +1,49 @@
+/* 钢琴键盘组件 - 尺寸由 wrapper 控制 */
+.keyboard-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 钢琴画布 - 占据剩余空间 */
+.piano-canvas {
+  flex: 1;
+  width: 100%;
+}
+
+/* 八度切换栏（仅 Hard 层显示） */
+.octave-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6rpx 20rpx;
+  background: linear-gradient(135deg, #F4F1DE, #E8D5B0);
+  border-bottom: 1rpx solid rgba(130, 23, 255, 0.2);
+  flex-shrink: 0;
+  box-shadow: 0 2rpx 8rpx rgba(130, 23, 255, 0.1);
+}
+
+.octave-btn {
+  font-size: 22rpx;
+  color: #8217FF;
+  padding: 8rpx 20rpx;
+  background: rgba(130, 23, 255, 0.1);
+  border: 1rpx solid rgba(130, 23, 255, 0.25);
+  border-radius: 8rpx;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.octave-btn:active {
+  background: rgba(130, 23, 255, 0.2);
+  transform: scale(0.95);
+}
+
+.octave-label {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #8217FF;
+  text-shadow: 0 1rpx 2rpx rgba(130, 23, 255, 0.15);
+  letter-spacing: 2rpx;
+}
