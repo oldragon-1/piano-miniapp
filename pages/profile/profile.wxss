@@ -1,0 +1,340 @@
+page {
+  background: #FFF8F0;
+}
+
+.container {
+  min-height: 100vh;
+  padding: 0 24rpx 120rpx;
+}
+
+/* 用户卡片 */
+.user-card {
+  background: linear-gradient(135deg, #FF8C00, #FFA500);
+  border-radius: 20rpx;
+  padding: 40rpx 30rpx;
+  display: flex;
+  align-items: center;
+  margin: 30rpx 0;
+  box-shadow: 0 8rpx 24rpx rgba(255, 140, 0, 0.3);
+}
+
+.avatar {
+  font-size: 80rpx;
+  margin-right: 24rpx;
+}
+
+.nickname {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+  text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1);
+}
+
+/* 统计 */
+.stats-row {
+  display: flex;
+  background: linear-gradient(135deg, #FFF5E6, #FFE4C4);
+  border-radius: 16rpx;
+  padding: 30rpx 0;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(255, 140, 0, 0.15);
+  border: 1rpx solid #FFD4A0;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #E86A00;
+  display: block;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: #B8860B;
+  margin-top: 8rpx;
+  display: block;
+}
+
+/* 区块 */
+.section {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(255, 140, 0, 0.1);
+  border: 1rpx solid #FFE4C4;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #E86A00;
+  margin-bottom: 0;
+  display: block;
+}
+
+.btn-add {
+  font-size: 24rpx;
+  color: #FF8C00;
+  padding: 6rpx 20rpx;
+  border: 1rpx solid #FF8C00;
+  border-radius: 20rpx;
+  font-weight: 500;
+}
+
+/* 我的曲谱 */
+.empty-hint {
+  padding: 30rpx 0;
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 24rpx;
+  color: #D4A060;
+}
+
+.user-song-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #FFE4C4;
+}
+
+.user-song-item:last-child {
+  border-bottom: none;
+}
+
+.user-song-info {
+  flex: 1;
+}
+
+.user-song-title {
+  font-size: 28rpx;
+  color: #E86A00;
+  font-weight: 500;
+  display: block;
+}
+
+.user-song-meta {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 6rpx;
+}
+
+.user-song-note {
+  font-size: 22rpx;
+  color: #B8860B;
+}
+
+.user-song-date {
+  font-size: 22rpx;
+  color: #D4A060;
+}
+
+.user-song-actions {
+  display: flex;
+  align-items: center;
+  margin-left: 16rpx;
+}
+
+.btn-delete {
+  font-size: 22rpx;
+  color: #FF6B6B;
+  padding: 8rpx 16rpx;
+  border: 1rpx solid #FFB4B4;
+  border-radius: 8rpx;
+}
+
+.btn-notation {
+  font-size: 22rpx;
+  color: #E86A00;
+  padding: 8rpx 16rpx;
+  border: 1rpx solid #FFD4A0;
+  border-radius: 8rpx;
+  margin-right: 8rpx;
+}
+
+/* 简谱弹窗 */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.notation-modal {
+  background: #FFFAF0;
+  border-radius: 20rpx;
+  width: 85%;
+  max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  border: 2rpx solid #FFD4A0;
+  overflow: hidden;
+}
+
+.notation-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 30rpx;
+  border-bottom: 1rpx solid #FFE4C4;
+}
+
+.notation-modal-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #E86A00;
+}
+
+.notation-modal-close {
+  font-size: 32rpx;
+  color: #B8860B;
+  padding: 8rpx;
+}
+
+.notation-modal-body {
+  flex: 1;
+  padding: 24rpx 30rpx;
+  max-height: 60vh;
+}
+
+.notation-line {
+  margin-bottom: 16rpx;
+}
+
+.notation-text {
+  font-size: 32rpx;
+  color: #5C3D1A;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 4rpx;
+  line-height: 1.8;
+}
+
+/* 最近弹奏 */
+.recent-list .recent-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #FFE4C4;
+}
+
+.recent-list .recent-item:last-child {
+  border-bottom: none;
+}
+
+.recent-icon {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+}
+
+.recent-name {
+  font-size: 28rpx;
+  color: #E86A00;
+  display: block;
+}
+
+.recent-date {
+  font-size: 22rpx;
+  color: #B8860B;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.recent-score {
+  margin-left: auto;
+  font-size: 26rpx;
+  color: #FF8C00;
+  font-weight: bold;
+}
+
+/* 菜单 */
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #FFE4C4;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-icon {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+}
+
+.menu-text {
+  font-size: 28rpx;
+  color: #E86A00;
+  flex: 1;
+  font-weight: 500;
+}
+
+.menu-desc {
+  font-size: 22rpx;
+  color: #B8860B;
+  margin-right: 12rpx;
+}
+
+.menu-arrow {
+  font-size: 32rpx;
+  color: #FFA500;
+}
+
+/* 底部导航 */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  background: linear-gradient(180deg, #FFF8F0, #FFF0E0);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -4rpx 12rpx rgba(255, 140, 0, 0.15);
+  border-top: 1rpx solid #FFE4C4;
+  z-index: 50;
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12rpx 40rpx;
+}
+
+.tab-item.active .tab-icon,
+.tab-item.active .tab-label {
+  color: #E86A00;
+}
+
+.tab-icon {
+  font-size: 36rpx;
+  color: #B8860B;
+}
+
+.tab-label {
+  font-size: 20rpx;
+  color: #B8860B;
+  margin-top: 4rpx;
+}
