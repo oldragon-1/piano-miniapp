@@ -1,0 +1,104 @@
+<!-- 首页 -->
+<view class="container">
+  <!-- 副标题 -->
+  <view class="header">
+    <text class="subtitle">零基础也能弹好听的歌</text>
+  </view>
+
+  <!-- 每日推荐卡片 -->
+  <view class="daily-card" wx:if="{{dailySong}}">
+    <view class="card-badge">今日推荐</view>
+    <view class="card-body">
+      <view class="card-main-row">
+        <text class="card-title">{{dailySong.title}}</text>
+        <text class="card-difficulty">
+          <text class="diff-dot {{dailySong.difficulty === 'easy' ? 'green' : 'orange'}}"></text>
+          {{dailySong.difficulty === 'easy' ? '简单' : '中等'}}
+        </text>
+        <view class="card-play-btn" bindtap="startPlay">开始跟弹</view>
+      </view>
+      <view class="card-tags">
+        <text class="tag" wx:for="{{dailySong.tags}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 主按钮 -->
+  <view class="main-actions">
+    <view class="action-card" bindtap="startPlay">
+      <text class="action-icon">🎹</text>
+      <text class="action-title">开始跟弹</text>
+      <text class="action-desc">从推荐曲目开始练习</text>
+    </view>
+    <view class="action-card" bindtap="goImport">
+      <text class="action-icon">📝</text>
+      <text class="action-title">贴谱就弹</text>
+      <text class="action-desc">粘贴简谱，一键改造</text>
+    </view>
+  </view>
+
+  <!-- 曲库列表 -->
+  <view class="song-list">
+    <view class="list-header">
+      <text class="list-title">曲目库</text>
+      <view class="search-box">
+        <input class="search-input" placeholder="搜索曲目..." bindinput="onSearch" value="{{searchText}}" />
+      </view>
+    </view>
+    
+    <view class="tag-bar">
+      <text class="tag {{activeTag === '' ? 'active' : ''}}" bindtap="onTagTap" data-tag="">全部</text>
+      <text class="tag {{activeTag === '经典' ? 'active' : ''}}" bindtap="onTagTap" data-tag="经典">经典</text>
+      <text class="tag {{activeTag === '儿歌' ? 'active' : ''}}" bindtap="onTagTap" data-tag="儿歌">儿歌</text>
+      <text class="tag {{activeTag === '民歌' ? 'active' : ''}}" bindtap="onTagTap" data-tag="民歌">民歌</text>
+      <text class="tag {{activeTag === '古典' ? 'active' : ''}}" bindtap="onTagTap" data-tag="古典">古典</text>
+      <text class="tag {{activeTag === '自定义' ? 'active' : ''}}" bindtap="onTagTap" data-tag="自定义">我的</text>
+    </view>
+
+    <view class="song-item" wx:for="{{filteredSongs}}" wx:key="id" wx:if="{{index < displayCount}}" bindtap="onSongTap" data-id="{{item.id}}">
+      <view class="song-info">
+        <view class="song-name-row">
+          <text class="song-name">{{item.title}}</text>
+        </view>
+        <view class="song-meta">
+          <text class="song-tag" wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+        </view>
+      </view>
+      <view class="song-actions-row">
+        <view class="btn-notation-sm" catchtap="showNotation" data-id="{{item.id}}">简谱</view>
+        <view class="song-arrow">›</view>
+      </view>
+    </view>
+    <!-- 查看更多按钮 -->
+    <view class="load-more" wx:if="{{displayCount < filteredSongs.length}}" bindtap="showMoreSongs">
+      <text class="load-more-text">查看更多 · {{filteredSongs.length}}首</text>
+    </view>
+  </view>
+
+  <!-- 底部导航占位 -->
+  <view class="tab-bar">
+    <view class="tab-item active">
+      <text class="tab-icon">🏠</text>
+      <text class="tab-label">首页</text>
+    </view>
+    <view class="tab-item" bindtap="goProfile">
+      <text class="tab-icon">👤</text>
+      <text class="tab-label">我的</text>
+    </view>
+  </view>
+
+  <!-- 简谱查看弹窗 -->
+  <view class="modal-overlay" wx:if="{{showNotationModal}}" bindtap="hideNotationModal">
+    <view class="notation-modal" catchtap="">
+      <view class="notation-modal-header">
+        <text class="notation-modal-title">{{notationModalTitle}}</text>
+        <view class="notation-modal-close" bindtap="hideNotationModal">✕</view>
+      </view>
+      <scroll-view scroll-y class="notation-modal-body">
+        <view class="notation-line" wx:for="{{notationLines}}" wx:key="index">
+          <text class="notation-text">{{item}}</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
