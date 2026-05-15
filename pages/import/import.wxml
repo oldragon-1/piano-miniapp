@@ -1,0 +1,75 @@
+<!-- 导入页 - 贴谱就弹 -->
+<view class="container">
+  <view class="header">
+    <text class="title">贴谱就弹</text>
+    <text class="desc">粘贴简谱数字，自动转C调白键版</text>
+  </view>
+
+  <!-- 曲名 -->
+  <view class="input-section title-section">
+    <text class="input-label">曲名</text>
+    <input
+      class="title-input"
+      placeholder="给这首曲子起个名字"
+      bindinput="onTitleInput"
+      value="{{songTitle}}"
+      maxlength="20"
+    />
+  </view>
+
+  <!-- 简谱输入 -->
+  <view class="input-section">
+    <textarea
+      class="notation-input"
+      placeholder="在此粘贴简谱数字...\n例如: 5 5 6 5 3 1\n或: 1122334455667"
+      bindinput="onNotationInput"
+      value="{{notation}}"
+      maxlength="5000"
+      auto-height
+    />
+  </view>
+
+  <view class="options-section">
+    <view class="option-row">
+      <text class="option-label">原调：</text>
+      <picker bindchange="onKeyChange" value="{{keyIndex}}" range="{{keyOptions}}">
+        <view class="picker-value">{{keyOptions[keyIndex]}}</view>
+      </picker>
+    </view>
+    <view class="option-row">
+      <text class="option-label">和弦进行：</text>
+      <picker bindchange="onProgressionChange" value="{{progIndex}}" range="{{progOptions}}">
+        <view class="picker-value">{{progOptions[progIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="action-section">
+    <view class="btn-transform" bindtap="transformNotation">一键改造</view>
+  </view>
+
+  <view class="result-section" wx:if="{{transformed}}">
+    <text class="result-title">改造结果</text>
+    <view class="result-info">
+      <text class="info-text">共 {{noteCount}} 个音符，已转为C调白键版</text>
+    </view>
+    <view class="result-btns">
+      <view class="btn-play" bindtap="goPlay">去弹奏</view>
+      <view class="btn-preview" bindtap="goPreview">预览</view>
+    </view>
+  </view>
+
+  <!-- 版权声明弹窗 -->
+  <view class="modal-overlay" wx:if="{{showCopyrightModal}}">
+    <view class="modal-card">
+      <text class="modal-title">版权声明</text>
+      <text class="modal-text">
+        您将要导入的简谱由您自行提供，小程序仅做格式转换与白键优化处理，不存储任何有版权的曲谱内容。\n\n请确保您导入的简谱不侵犯他人版权，导入行为即表示您对导入内容的版权责任自负。本工具仅供学习交流使用。
+      </text>
+      <view class="modal-actions">
+        <view class="btn-cancel" bindtap="hideCopyrightModal">取消</view>
+        <view class="btn-confirm" bindtap="confirmTransform">确认导入</view>
+      </view>
+    </view>
+  </view>
+</view>
