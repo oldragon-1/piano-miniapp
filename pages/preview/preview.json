@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "preview-keyboard": "../../components/preview-keyboard/preview-keyboard"
+  },
+  "pageOrientation": "landscape",
+  "navigationBarTitleText": "预览"
+}
