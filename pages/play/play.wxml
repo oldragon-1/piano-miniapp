@@ -1,0 +1,99 @@
+<!-- 弹奏页 - 横向简谱 + 全宽键盘（设计文档规范） -->
+<view class="container">
+  <!-- 上半屏：横向简谱区 -->
+  <view class="top-area">
+    <view class="top-bar">
+      <text class="song-title">{{songTitle}}</text>
+      <view class="speed-control">
+        <view class="auto-play-btn {{isAutoPlaying ? 'playing' : ''}}" bindtap="startAutoPlay">
+          <text class="auto-play-icon">{{isAutoPlaying ? '⏹' : '▶'}}</text>
+          <text class="auto-play-label">{{isAutoPlaying ? '停止' : '演示'}}</text>
+        </view>
+        <view class="speed-btn" bindtap="slowDown">🐢</view>
+        <text class="speed-text">{{bpm}}BPM</text>
+        <view class="speed-btn" bindtap="speedUp">🐇</view>
+      </view>
+      <view class="score-display">得分: {{score}}</view>
+    </view>
+
+    <!-- 简谱区：和弦提示 + 简谱滚动 -->
+    <view class="notation-area">
+      <!-- 和弦提示 -->
+      <view class="chord-hint" wx:if="{{currentChord}}">
+        <text class="chint-label">{{songLayer === 3 ? '和弦' : '左手和弦'}}</text>
+        <text class="chint-name">{{currentChord}}</text>
+      </view>
+      <view class="chord-hint chord-hint-empty" wx:else></view>
+      <!-- 简谱滚动 -->
+      <scroll-view class="notation-scroll" scroll-x scroll-left="{{scrollLeft}}" enhanced show-scrollbar="{{false}}">
+        <view class="notation-track">
+          <view wx:for="{{notes}}" wx:key="index" id="note-{{index}}" class="note-item {{index === currentIndex ? 'active' : (index < currentIndex ? 'done' : '')}} {{index < currentIndex ? 'clickable' : ''}}" style="min-width:{{noteWidths[index]}}rpx;" catchtap="jumpToNote" data-index="{{index}}">
+            <!-- 高音点（数字上方） -->
+            <block wx:if="{{item.dotHigh > 0}}">
+              <text class="note-dot-high">{{item.dotHigh === 1 ? '·' : (item.dotHigh === 2 ? '··' : '···')}}</text>
+            </block>
+            <text class="note-num">{{item.displayNum}}</text>
+            <!-- 低音点（数字下方） -->
+            <block wx:if="{{item.dotLow > 0}}">
+              <text class="note-dot-low">{{item.dotLow === 1 ? '·' : (item.dotLow === 2 ? '··' : '···')}}</text>
+            </block>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="bottom-bar">
+      <view class="bottom-row">
+        <view class="bl-left"></view>
+        <view class="bl-right">
+          <view class="nav-btn" bindtap="jumpPrevPhrase">←</view>
+          <view class="progress-wrap">
+            <view class="progress-bar">
+              <view class="progress-fill" style="width:{{progress}}%"></view>
+            </view>
+          </view>
+          <text class="progress-text">{{currentIndex}}/{{notes.length}}</text>
+          <view class="nav-btn" bindtap="jumpNextPhrase">→</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 下半屏：全宽钢琴键盘（CSS flex: 0 0 45%） -->
+  <view class="keyboard-area">
+    <piano-keyboard
+      canvasWidth="{{keyboardW}}"
+      canvasHeight="{{keyboardH}}"
+      highlightChord="{{currentChord}}"
+      highlightNote="{{currentNote}}"
+      highlightLowNote="{{currentLowNote}}"
+      showDivider="{{true}}"
+      layer="{{songLayer}}"
+      bind:keydown="onKeyDown"
+      bind:keyup="onKeyUp"
+    />
+  </view>
+
+  <!-- 成绩弹窗 -->
+  <view class="modal-overlay" wx:if="{{showScore}}">
+    <view class="score-card">
+      <text class="score-title">弹奏完成！</text>
+      <view class="score-row">
+        <text class="score-label">得分</text>
+        <text class="score-value">{{score}}</text>
+      </view>
+      <view class="score-row">
+        <text class="score-label">最高连击</text>
+        <text class="score-value">{{maxCombo}}</text>
+      </view>
+      <view class="score-row">
+        <text class="score-label">正确率</text>
+        <text class="score-value">{{accuracy}}%</text>
+      </view>
+      <view class="score-actions">
+        <view class="btn-primary" bindtap="restartSong">重新弹奏</view>
+        <view class="btn-secondary" bindtap="goBack">返回首页</view>
+      </view>
+    </view>
+  </view>
+</view>
